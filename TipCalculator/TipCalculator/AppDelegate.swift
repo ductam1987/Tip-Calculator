@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  TipCalculator
 //
-//  Created by FAHC03-179 on 2/7/17.
+//  Created by Tamnd on 2/7/17.
 //
 //
 

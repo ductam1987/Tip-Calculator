@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  TipCalculator
 //
-//  Created by FAHC03-179 on 2/7/17.
+//  Created by Tamnd on 2/7/17.
 //
 //
 
@@ -16,8 +16,29 @@ class ViewController: UIViewController {
     @IBOutlet weak var tipControl: UISegmentedControl!
     
     override func viewDidLoad() {
-        super.viewDidLoad()
+        super.viewDidLoad();
+//        calculateTip(self);
         // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated);
+        print("view will appear");
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated);
+        print("view did appear");
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated);
+        print("view will disappear");
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated);
+        print("view did disappear");
     }
 
     override func didReceiveMemoryWarning() {
@@ -34,14 +55,18 @@ class ViewController: UIViewController {
     
     @IBAction func calculateTip(_ sender: AnyObject) {
         
-        let tipPercentages = [0.18, 0.20, 0.25]
+        let tipPercentages = [0.18, 0.20, 0.25];
         
-        let bill = Double(billField.text!) ?? 0
-        let tip = bill * tipPercentages[tipControl.selectedSegmentIndex]
-        let total = bill + tip
+        let bill = Double(billField.text!) ?? 0;
+        let tip = bill * tipPercentages[tipControl.selectedSegmentIndex];
+        let total = bill + tip;
         
-        tipLabel.text = String.init(format: "$%.2f", tip)
-        totalLabel.text = String.init(format: "$%.2f", total)
+        tipLabel.text = String.init(format: "$%.2f", tip);
+        totalLabel.text = String.init(format: "$%.2f", total);
+        
+        let defaultsTip = UserDefaults.standard;
+        defaultsTip.set(tipControl.selectedSegmentIndex, forKey: "SEGMENT");
+        defaultsTip.synchronize();
     }
 }
 
