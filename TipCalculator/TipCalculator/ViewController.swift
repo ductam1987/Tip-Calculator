@@ -17,7 +17,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad();
-//        calculateTip(self);
+        print("view did load");
         // Do any additional setup after loading the view, typically from a nib.
     }
     
@@ -29,6 +29,9 @@ class ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated);
         print("view did appear");
+        if(UserDefaults.standard.bool(forKey: "SEGMENT_CHANGE")){
+            calculateTip(self);
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -56,17 +59,30 @@ class ViewController: UIViewController {
     @IBAction func calculateTip(_ sender: AnyObject) {
         
         let tipPercentages = [0.18, 0.20, 0.25];
+        var segmentIndex = tipControl.selectedSegmentIndex;
+        let defaultsTip = UserDefaults.standard;
+        if(UserDefaults.standard.bool(forKey: "SEGMENT_CHANGE")){
+            segmentIndex = defaultsTip.integer(forKey: "SEGMENT");
+            tipControl.selectedSegmentIndex = segmentIndex;
+            defaultsTip.set(false, forKey: "SEGMENT_CHANGE");
+            defaultsTip.synchronize();
+        }
         
         let bill = Double(billField.text!) ?? 0;
-        let tip = bill * tipPercentages[tipControl.selectedSegmentIndex];
+        let tip = bill * tipPercentages[segmentIndex];
         let total = bill + tip;
         
         tipLabel.text = String.init(format: "$%.2f", tip);
         totalLabel.text = String.init(format: "$%.2f", total);
+    }
+    
+    @IBAction func selectSegment(_ sender: Any) {
         
+        calculateTip(self);
         let defaultsTip = UserDefaults.standard;
         defaultsTip.set(tipControl.selectedSegmentIndex, forKey: "SEGMENT");
         defaultsTip.synchronize();
     }
+    
 }
 

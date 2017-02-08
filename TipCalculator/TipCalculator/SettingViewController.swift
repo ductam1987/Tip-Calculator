@@ -26,6 +26,20 @@ class SettingViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    @IBAction func selectSegment(_ sender: Any) {
+        let defaultsTip = UserDefaults.standard;
+        let segmentIndex = defaultsTip.integer(forKey:"SEGMENT");
+        
+        if(segmentIndex == segmentControl.selectedSegmentIndex){
+            return;
+        }else{
+            defaultsTip.set(segmentControl.selectedSegmentIndex, forKey: "SEGMENT");
+            defaultsTip.set(true, forKey: "SEGMENT_CHANGE");
+            defaultsTip.synchronize();
+            print(segmentControl.selectedSegmentIndex);
+        }
+    }
+    
     /*
     // MARK: - Navigation
 

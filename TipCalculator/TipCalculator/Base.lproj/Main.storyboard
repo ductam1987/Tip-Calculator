@@ -69,7 +69,7 @@
                                     <segment title="25%"/>
                                 </segments>
                                 <connections>
-                                    <action selector="calculateTip:" destination="BYZ-38-t0r" eventType="valueChanged" id="Poa-6w-Tks"/>
+                                    <action selector="selectSegment:" destination="BYZ-38-t0r" eventType="valueChanged" id="MSG-fy-WR5"/>
                                 </connections>
                             </segmentedControl>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="$0.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RWw-Uu-svt">
@@ -107,7 +107,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="611.5" y="-604.5"/>
+            <point key="canvasLocation" x="555" y="-605"/>
         </scene>
         <!--Setting View Controller-->
         <scene sceneID="9EQ-n0-TZO">
@@ -125,6 +125,9 @@
                                     <segment title="20%"/>
                                     <segment title="25%"/>
                                 </segments>
+                                <connections>
+                                    <action selector="selectSegment:" destination="RQj-Pp-HMs" eventType="valueChanged" id="xp1-mA-O4J"/>
+                                </connections>
                             </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
