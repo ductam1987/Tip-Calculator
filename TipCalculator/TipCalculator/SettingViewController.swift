@@ -15,7 +15,7 @@ class SettingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad();
         let defaultsTip = UserDefaults.standard;
-        let segmentIndex = defaultsTip.integer(forKey: "SEGMENT");
+        let segmentIndex = defaultsTip.integer(forKey: Constant.DEFAULT_TIP);
         segmentControl.selectedSegmentIndex = segmentIndex;
 
         // Do any additional setup after loading the view.
@@ -28,13 +28,13 @@ class SettingViewController: UIViewController {
 
     @IBAction func selectSegment(_ sender: Any) {
         let defaultsTip = UserDefaults.standard;
-        let segmentIndex = defaultsTip.integer(forKey:"SEGMENT");
+        let segmentIndex = defaultsTip.integer(forKey:Constant.DEFAULT_TIP);
         
         if(segmentIndex == segmentControl.selectedSegmentIndex){
             return;
         }else{
-            defaultsTip.set(segmentControl.selectedSegmentIndex, forKey: "SEGMENT");
-            defaultsTip.set(true, forKey: "SEGMENT_CHANGE");
+            defaultsTip.set(segmentControl.selectedSegmentIndex, forKey: Constant.DEFAULT_TIP);
+            defaultsTip.set(true, forKey: Constant.CHANGE_DEFAULT_TIP);
             defaultsTip.synchronize();
             print(segmentControl.selectedSegmentIndex);
         }

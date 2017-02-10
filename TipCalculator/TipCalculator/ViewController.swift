@@ -17,6 +17,9 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad();
+
+        billField.keyboardType = UIKeyboardType.decimalPad;
+        billField.becomeFirstResponder();
         print("view did load");
         // Do any additional setup after loading the view, typically from a nib.
     }
@@ -29,7 +32,7 @@ class ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated);
         print("view did appear");
-        if(UserDefaults.standard.bool(forKey: "SEGMENT_CHANGE")){
+        if(UserDefaults.standard.bool(forKey: Constant.CHANGE_DEFAULT_TIP)){
             calculateTip(self);
         }
     }
@@ -56,32 +59,28 @@ class ViewController: UIViewController {
     }
     
     
-    @IBAction func calculateTip(_ sender: AnyObject) {
+    @IBAction func calculateTip(_ sender: Any) {
         
         let tipPercentages = [0.18, 0.20, 0.25];
         var segmentIndex = tipControl.selectedSegmentIndex;
         let defaultsTip = UserDefaults.standard;
-        if(UserDefaults.standard.bool(forKey: "SEGMENT_CHANGE")){
-            segmentIndex = defaultsTip.integer(forKey: "SEGMENT");
+        if(UserDefaults.standard.bool(forKey: Constant.CHANGE_DEFAULT_TIP)){
+            segmentIndex = defaultsTip.integer(forKey: Constant.DEFAULT_TIP);
             tipControl.selectedSegmentIndex = segmentIndex;
-            defaultsTip.set(false, forKey: "SEGMENT_CHANGE");
+            defaultsTip.set(false, forKey: Constant.CHANGE_DEFAULT_TIP);
             defaultsTip.synchronize();
         }
         
         let bill = Double(billField.text!) ?? 0;
-        let tip = bill * tipPercentages[segmentIndex];
+        let tip = bill * (tipPercentages[segmentIndex]);
         let total = bill + tip;
         
-        tipLabel.text = String.init(format: "$%.2f", tip);
-        totalLabel.text = String.init(format: "$%.2f", total);
+        tipLabel.text =  tip.asLocaleCurrency;
+        totalLabel.text = total.asLocaleCurrency;
     }
     
     @IBAction func selectSegment(_ sender: Any) {
-        
         calculateTip(self);
-        let defaultsTip = UserDefaults.standard;
-        defaultsTip.set(tipControl.selectedSegmentIndex, forKey: "SEGMENT");
-        defaultsTip.synchronize();
     }
     
 }
